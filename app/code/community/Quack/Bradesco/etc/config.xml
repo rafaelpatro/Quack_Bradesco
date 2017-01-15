@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Este arquivo é parte do programa Quack Bradesco
+ *
+ * Quack Bradesco é um software livre; você pode redistribuí-lo e/ou 
+ * modificá-lo dentro dos termos da Licença Pública Geral GNU como 
+ * publicada pela Fundação do Software Livre (FSF); na versão 3 da 
+ * Licença, ou (na sua opinião) qualquer versão.
+ *
+ * Este programa é distribuído na esperança de que possa ser  útil, 
+ * mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO
+ * a qualquer MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
+ * Licença Pública Geral GNU para maiores detalhes.
+ *
+ * Você deve ter recebido uma cópia da Licença Pública Geral GNU junto
+ * com este programa, Se não, veja <http://www.gnu.org/licenses/>.
+ *
+ * @category   Quack
+ * @package    Quack_Bradesco
+ * @author     Rafael Patro <rafaelpatro@gmail.com>
+ * @copyright  Copyright (c) 2017 Rafael Patro (rafaelpatro@gmail.com)
+ * @license    http://www.gnu.org/licenses/gpl.txt
+ * @link       https://github.com/rafaelpatro/Quack_Bradesco
+ */ 
+-->
+<config>
+	<modules>
+		<Quack_Bradesco>
+			<version>1.0.1</version>
+		</Quack_Bradesco>
+	</modules>
+	<global>
+		<models>
+			<bradesco>
+				<class>Quack_Bradesco_Model</class>
+				<resourceModel>bradesco_mysql4</resourceModel>
+			</bradesco>
+		</models>
+		<helpers>
+			<bradesco>
+				<class>Quack_Bradesco_Helper</class>
+			</bradesco>
+		</helpers>
+		<resources>
+			<bradesco_setup>
+				<setup>
+					<module>Quack_Bradesco</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</bradesco_setup>
+			<bradesco_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</bradesco_write>
+			<bradesco_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</bradesco_read>
+		</resources>
+		<blocks>
+			<bradesco>
+				<class>Quack_Bradesco_Block</class>
+			</bradesco>
+		</blocks>
+	</global>
+	<frontend>
+		<routers>
+			<bradesco>
+				<use>standard</use>
+				<args>
+					<module>Quack_Bradesco</module>
+					<frontName>bradesco</frontName>
+				</args>
+			</bradesco>
+		</routers>
+		<translate>
+			<modules>
+				<Quack_Bradesco>
+					<files>
+						<default>Quack_Bradesco.csv</default>
+					</files>
+				</Quack_Bradesco>
+			</modules>
+		</translate>
+		<events>
+			<payment_info_block_prepare_specific_information>
+				<observers>
+					<quack_bradesco_observer>
+						<type>singleton</type>
+						<class>Quack_Bradesco_Model_Observer</class>
+						<method>setFrontendPaymentInfo</method>
+					</quack_bradesco_observer>
+				</observers>
+			</payment_info_block_prepare_specific_information>
+		</events>
+        <layout>
+            <updates>
+                <Quack_Bradesco>
+                    <file>bradesco.xml</file>
+                </Quack_Bradesco>
+            </updates>
+        </layout>
+	</frontend>
+	<adminhtml>
+		<translate>
+			<modules>
+				<Quack_Bradesco>
+					<files>
+						<default>Quack_Bradesco.csv</default>
+					</files>
+				</Quack_Bradesco>
+			</modules>
+		</translate>
+		<events>
+			<payment_info_block_prepare_specific_information>
+				<observers>
+					<quack_bradesco_observer>
+						<type>singleton</type>
+						<class>Quack_Bradesco_Model_Observer</class>
+						<method>setBackendPaymentInfo</method>
+					</quack_bradesco_observer>
+				</observers>
+			</payment_info_block_prepare_specific_information>
+		</events>
+	</adminhtml>
+	<default>
+		<payment>
+			<bradesco_standard>
+				<active>0</active>
+				<model>bradesco/standard</model>
+				<title>Bradesco</title>
+				<allowspecific>1</allowspecific>
+				<urlbradesco>http://mupteste.comercioeletronico.com.br/sepsTransfer/12345/prepara_pagto.asp</urlbradesco>
+				<urlsonda>http://mupteste.comercioeletronico.com.br/sepsmanager/ArqRetBradescoTransfer_XML2.asp</urlsonda>
+				<merchant_id>12345</merchant_id>
+				<manager></manager>
+				<passwd></passwd>
+				<agencia>0001</agencia>
+				<conta>0000001</conta>
+				<assinatura>7B94A66D138FFD2AEBFBE3D8E0BDBD02700A5B793F017B0C8B40252C3680F9CD05C7EEB1A395C84916425DC318F7F07518D416194FB077AA47A8DBD2B35B2E4C376A23385FDD9B0AA3E7D0712B373B9EFD11028ADFC763B7EAD4A3E70FC8BE4A3CF4DA804E692A6173F4B81F568D7A9A38F663106149A34409B3C48147FBAA12</assinatura>
+				<allowredirect>0</allowredirect>
+				<allowbanktransfer>0</allowbanktransfer>
+			</bradesco_standard>
+		</payment>
+	</default>
+	<crontab>
+		<jobs>
+			<bradesco_status_check>
+				<schedule>
+					<cron_expr>*/10 * * * *</cron_expr>
+				</schedule>
+				<run>
+					<model>bradesco/observer::checkPayment</model>
+				</run>
+			</bradesco_status_check>
+		</jobs>
+	</crontab>
+</config>
