@@ -1,6 +1,7 @@
 {
   "name" : "quack/bradesco",
   "description" : "Módulo de pagamento pelo Bradesco, para Magento.",
+  "license": "GPL-3.0",
   "type": "magento-module",
   "homepage": "https://github.com/rafaelpatro/Quack_Bradesco",
   "version" : "1.0.0",
