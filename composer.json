@@ -1,0 +1,18 @@
+{
+  "name" : "quack/bradesco",
+  "description" : "Módulo de pagamento pelo Bradesco, para Magento.",
+  "type": "magento-module",
+  "homepage": "https://github.com/rafaelpatro/Quack_Bradesco",
+  "version" : "1.0.0",
+  "require": {
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "authors":[{
+    "name": "Rafael Patro",
+    "email": "rafaelpatro@gmail.com"
+  }],
+  "repositories" : [ {
+    "type" : "composer",
+    "url" : "https://packagist.org/"
+  } ]
+}
