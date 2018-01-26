@@ -1,3 +1,8 @@
+# Aviso: Esta extensão não é mais funcional!
+ - Recentemente ocorreram diversas alterações nos sistemas ShopFácil, inviabilizando a manutenção deste módulo.
+ - Assim que tiver conhecimento das novas regras (ou novo manual), um novo projeto poderá ser iniciado.
+ - Qualquer colaboração, profissional ou não, será muito bem vinda.
+
 # Quack Bradesco
 Módulo de pagamentos Bradesco para Magento.
 Desenvolvido a partir do Manual de Orientações Técnicas, fornecido pelo Bradesco.
